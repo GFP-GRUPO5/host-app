@@ -1,4 +1,4 @@
-Luigi.setConfig({
+window.Luigi.setConfig({
   navigation: {
     nodes: () => [
       {
