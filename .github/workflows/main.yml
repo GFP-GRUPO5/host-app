@@ -17,6 +17,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - run: npm cache clean --force
+      - run: rm -rf node_modules package-lock.json
       - run: npm install
       - run: npm run build
         env:
@@ -27,9 +29,3 @@ jobs:
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      
-
-  
-        
-      
