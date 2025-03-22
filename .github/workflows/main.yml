@@ -17,6 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
       - run: npm cache clean --force
       - run: rm -rf node_modules package-lock.json
       - run: npm install
