@@ -27,3 +27,4 @@ jobs:
             git pull origin main
             # Add any additional commands such as restarting your service:
             # sudo systemctl restart myapp.service
+            
