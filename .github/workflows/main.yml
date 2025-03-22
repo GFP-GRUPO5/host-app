@@ -17,7 +17,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: npm install -g npm@latest
       - run: npm cache clean --force
       - run: rm -rf node_modules package-lock.json
       - run: npm install
