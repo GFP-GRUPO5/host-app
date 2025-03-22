@@ -42,9 +42,14 @@ window.Luigi.setConfig({
             label: 'Configurações',
             icon: 'settings',
             viewUrl: 'http://localhost:3001/dashboard/configuracoes'
-          }
+          },
         ]
       }
     ]
   },
+  routing: {
+    notFound: {
+      viewUrl: '../src/'
+    }
+  }
 });
