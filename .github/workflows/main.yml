@@ -1,30 +1,29 @@
-name: deploy-hostapp
+name: Deploy to DigitalOcean Droplet
 
 on:
   push:
     branches:
       - main
-    paths:
-      - '**'
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      - run: npm cache clean --force
-      - run: rm -rf node_modules package-lock.json
-      - run: npm install
-      - run: npm run build
-        env:
-          PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
+      # Step 1: Checkout the code from the repository.
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: shinyinc/action-aws-cli@v1.2
-      - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
-        env: 
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # Step 2: Deploy to the droplet via SSH.
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 80
+          script: |
+            cd /path/to/your/app
+            git pull origin main
+            # Add any additional commands such as restarting your service:
+            # sudo systemctl restart myapp.service
